@@ -5,6 +5,7 @@ const UploadVideo = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const inputFileRef = useRef()
 
   const handleFileChange = (e) => {
@@ -23,6 +24,7 @@ const UploadVideo = () => {
 
   const handleUpload = () => {
     if (selectedFile) {
+      setLoading(true)
       // Continue with file upload if no validation error
       if (!error) {
         const formData = new FormData();
@@ -40,6 +42,8 @@ const UploadVideo = () => {
           })
           .catch((error) => {
             console.error('Error uploading video:', error);
+          }).finally(() => {
+            setLoading(false)
           });
       }
     } else {
@@ -57,7 +61,7 @@ const UploadVideo = () => {
           <source src={filePreview} type={selectedFile.type} />
           Your browser does not support the video tag.
         </video>
-        <button className='upload-btn' onClick={handleUpload}>Upload Video</button>
+        <button className='upload-btn' onClick={handleUpload}> {loading ? <img style={{ maxWidth: '24px' }} src='https://i.gifer.com/ZKZg.gif' alt='loading' /> : 'Upload Video'}</button>
       </>
         : <>
           <p style={{ color: '#ff5000' }}>STEP 1</p>
