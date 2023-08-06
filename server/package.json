@@ -9,6 +9,7 @@
   "author": "Mohd Arshad",
   "license": "ISC",
   "dependencies": {
+    "@deepgram/sdk": "^2.4.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
