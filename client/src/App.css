@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  --primary-color: #ff5000;
 }
 
 body,
@@ -15,7 +16,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: #807b7b;
-  padding: 16px;
+  padding: 10px;
   color: #fff;
 }
 
@@ -81,6 +82,7 @@ nav .user-menu button {
   border-radius: 30px;
   padding: 140px;
   margin-bottom: 50px;
+  cursor: pointer;
 
   >img {
     max-width: 90px;
@@ -118,9 +120,94 @@ main button {
   padding: 10px 30px;
   margin: 10px 10px 30px auto;
   color: white;
-  background: #ff5000;
+  background: var(--primary-color);
   border: none;
   border-radius: 20px;
+}
+
+.video-prev-main {
+  position: relative;
+}
+
+.progress-container {
+  position: absolute;
+  inset: 0;
+  background: #ffffff70;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  >p {
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px white, -2px -2px 4px white;
+  }
+}
+
+.progress-back {
+  width: 80%;
+  background: whitesmoke;
+  height: 20px;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.progress-line {
+  height: 16px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.caption {
+  border-radius: 20px;
+  box-shadow: 20px 20px 20px #f6eded, -20px -20px 20px #f6eded;
+  padding: 10px 18px;
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.caption-container .time {
+  width: max-content;
+  padding: 6px 14px;
+  margin-bottom: 6px;
+  color: var(--primary-color);
+  background: #f6d79d;
+  border-radius: 16px;
+  font-weight: bold;
+}
+
+.caption-container .text {
+  margin: 0 0 30px 10px;
+  font-weight: bold;
+}
+
+.caption-container.active {
+  background: rgb(238, 182, 182);
+  border-radius: 10px;
+  padding: 1px 2px 1px 2px;
+}
+
+.caption-main .video-preview {
+  height: 90vh;
+  width: calc(90vh * 9/16);
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.caption-main {
+  display: flex;
+  height: 90vh;
+  margin-bottom: 100px;
+}
+
+.caption-video {
+  flex: 1;
+  text-align: center;
 }
 
 footer {
@@ -129,7 +216,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 10px;
 }
 
 footer .footer-links a {

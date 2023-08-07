@@ -36,16 +36,43 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+app.get('/test', async (req, res) => {
+    console.log('Hiii');
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    const jsonData = {
+        name: 'John Doe',
+        age: 30,
+        email: 'john@example.com'
+    };
+    const jsonData1 = {
+        name: 'Jaen Doe',
+        age: 39,
+        email: 'jaen@example.com'
+    };
+
+    // Convert JSON object to a string
+    const jsonString = JSON.stringify(jsonData);
+    const jsonString1 = JSON.stringify(jsonData1);
+
+    // Send the JSON data using res.write
+    res.write(jsonString);
+    res.write(jsonString1);
+
+    return res.end()
+})
+
 app.post('/upload', upload.single('video'), async (req, res) => {
+
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No video file provided' });
         }
 
         const outputPath = await exAudio(req.file);
-        const captionData = await transcribeAudio(outputPath)
 
+        const captionData = await transcribeAudio(outputPath)
         return res.json({ message: 'Video file uploaded successfully', captionData });
+
     } catch (error) {
         console.log(error);
         return res.json({ message: 'Error in Upload' });
@@ -55,10 +82,12 @@ app.post('/upload', upload.single('video'), async (req, res) => {
 async function exAudio(file) {
     const videoPath = file.path;
     const outputPath = 'output\\' + file.filename + '.mp3'
-    return await extractAudio({
+    await extractAudio({
         input: videoPath,
         output: outputPath,
     })
+
+    return outputPath;
 }
 
 async function transcribeAudio(filename) {
