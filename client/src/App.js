@@ -10,7 +10,6 @@ const App = () => {
     <Router>
       <Navbar />
       <UploadVideo />
-      
       <Footer />
     </Router>
   );

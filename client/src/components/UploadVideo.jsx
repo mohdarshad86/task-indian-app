@@ -12,11 +12,11 @@ const UploadVideo = () => {
   const inputFileRef = useRef()
 
   const handleFileChange = (e) => {
+
     const file = e.target.files[0];
     setSelectedFile(file);
-    setFilePreview(URL.createObjectURL(file)); // Create a preview URL for the selected video
+    setFilePreview(URL.createObjectURL(file));
 
-    // Clear previous error messages
     setError(null);
 
     if (file && !file.type.includes('video')) {
@@ -104,7 +104,7 @@ const UploadVideo = () => {
 
         </div>}
 
-      {(captionData != null && captionData.captionData != null) && <Captions video={filePreview} captionData={captionData.captionData} />}
+      {(captionData != null && captionData.captionData != null) && <Captions video={filePreview} captionData={captionData.captionData} downloadPath={captionData.fileName} />}
     </>
   );
 };
