@@ -9,15 +9,18 @@ const { Deepgram } = require("@deepgram/sdk");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const extractAudio = require('ffmpeg-extract-audio')
 
+const { processVideoWithCaption } = require('./addCaptions')
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+const DG_API_KEY = process.env.DG_API_KEY || '61f4f3d67ac70e5d36ef20d4b862a6bae55d068e';
 // const { Configuration, OpenAIApi } = require("openai");
 
 // const configuration = new Configuration({
 //     apiKey: process.env.OPENAI_API_KEY,
 // });
 // const openai = new OpenAIApi(configuration);
-const deepgram = new Deepgram(process.env.DG_API_KEY);
+const deepgram = new Deepgram(DG_API_KEY);
 
 app.use(cors());
 
@@ -36,46 +39,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.get('/test', async (req, res) => {
-    console.log('Hiii');
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    const jsonData = {
-        name: 'John Doe',
-        age: 30,
-        email: 'john@example.com'
-    };
-    const jsonData1 = {
-        name: 'Jaen Doe',
-        age: 39,
-        email: 'jaen@example.com'
-    };
-
-    // Convert JSON object to a string
-    const jsonString = JSON.stringify(jsonData);
-    const jsonString1 = JSON.stringify(jsonData1);
-
-    // Send the JSON data using res.write
-    res.write(jsonString);
-    res.write(jsonString1);
-
-    return res.end()
-})
-
 app.post('/upload', upload.single('video'), async (req, res) => {
 
     try {
         if (!req.file) {
-            return res.status(400).json({ error: 'No video file provided' });
+            return res.status(400).json({ status: false, message: 'No video file provided' });
         }
 
         const outputPath = await exAudio(req.file);
 
         const captionData = await transcribeAudio(outputPath)
-        return res.json({ message: 'Video file uploaded successfully', captionData });
+        return res.json({ status: true, message: 'Video file uploaded successfully', captionData });
 
     } catch (error) {
         console.log(error);
-        return res.json({ message: 'Error in Upload' });
+        return res.json({ status: false, message: 'Error in Upload' });
     }
 });
 
@@ -112,6 +90,8 @@ async function transcribeAudio(filename) {
 
     return sentences
 }
+
+//processVideoWithCaption()
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

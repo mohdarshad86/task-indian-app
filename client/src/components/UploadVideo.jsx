@@ -6,6 +6,7 @@ const UploadVideo = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
   const [error, setError] = useState(null);
+  const [captionData, setCaptionData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [percent, setPercent] = useState(0);
   const inputFileRef = useRef()
@@ -38,7 +39,7 @@ const UploadVideo = () => {
           },
         })
           .then((response) => {
-            console.log(response.data);
+            setCaptionData(response.data);
             // Handle the response from the backend
           })
           .catch((error) => {
@@ -58,48 +59,49 @@ const UploadVideo = () => {
 
   return (
     <>
-      <div className='main-video'>
+      {(captionData == null) &&
+        <div className='main-video'>
 
-        {filePreview ? <>
-          <p style={{ color: '#ff5000' }}>STEP 2</p>
-          <h2>Upload Your Video</h2>
-          <div className='video-prev-main'>
-            <video className='video-preview' width="1080" height="1920" controls>
-              <source src={filePreview} type={selectedFile.type} />
-              Your browser does not support the video tag.
-            </video>
-            {loading &&
-              <div className='progress-container'>
-                <div className='progress-back'>
-                  <div className='progress-line' style={{ width: Math.min(percent, 99) + '%' }}>
-                    {Math.min(percent, 99) + '%'}
+          {filePreview ? <>
+            <p style={{ color: '#ff5000' }}>STEP 2</p>
+            <h2>Upload Your Video</h2>
+            <div className='video-prev-main'>
+              <video className='video-preview' width="1080" height="1920" controls>
+                <source src={filePreview} type={selectedFile.type} />
+                Your browser does not support the video tag.
+              </video>
+              {loading &&
+                <div className='progress-container'>
+                  <div className='progress-back'>
+                    <div className='progress-line' style={{ width: Math.min(percent, 99) + '%' }}>
+                      {Math.min(percent, 99) + '%'}
+                    </div>
                   </div>
+                  {percent < 20 ? <p>Uploading Your Video</p> :
+                    <p>Generating Captions</p>}
                 </div>
-                {percent < 20 ? <p>Uploading Your Video</p> :
-                  <p>Generating Captions</p>}
-              </div>
-            }
-          </div>
-          <button className='upload-btn' onClick={handleUpload}> {loading ? <img style={{ maxWidth: '24px' }} src='https://i.gifer.com/ZKZg.gif' alt='loading' /> : 'Upload Video'}</button>
-        </>
-          : <>
-            <p style={{ color: '#ff5000' }}>STEP 1</p>
-            <h2>Select Your Video</h2>
-            <input ref={inputFileRef} style={{ display: 'none' }} type="file" accept="video/*" onChange={handleFileChange} />
-            <div className='vid-select-box' onClick={() => {
-              inputFileRef.current.click()
-            }}>
-              <img src='https://img.icons8.com/?size=512&id=103205&format=png' alt='upload' />
-              <b><p>Click or Drag/Drop to upload your video</p></b>
-              <p>MP4, MOV format accepted</p>
+              }
             </div>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <button className='upload-btn' onClick={handleUpload}> {loading ? <img style={{ maxWidth: '24px' }} src='https://i.gifer.com/ZKZg.gif' alt='loading' /> : 'Upload Video'}</button>
           </>
-        }
+            : <>
+              <p style={{ color: '#ff5000' }}>STEP 1</p>
+              <h2>Select Your Video</h2>
+              <input ref={inputFileRef} style={{ display: 'none' }} type="file" accept="video/*" onChange={handleFileChange} />
+              <div className='vid-select-box' onClick={() => {
+                inputFileRef.current.click()
+              }}>
+                <img src='https://img.icons8.com/?size=512&id=103205&format=png' alt='upload' />
+                <b><p>Click or Drag/Drop to upload your video</p></b>
+                <p>MP4, MOV format accepted</p>
+              </div>
+              {error && <div style={{ color: 'red' }}>{error}</div>}
+            </>
+          }
 
-      </div>
+        </div>}
 
-      {filePreview && <Captions video={filePreview} />}
+      {(captionData != null && captionData.captionData != null) && <Captions video={filePreview} captionData={captionData.captionData} />}
     </>
   );
 };
