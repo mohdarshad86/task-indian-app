@@ -24,11 +24,15 @@ const UploadVideo = () => {
     }
   };
 
+  const handlePercent = () => {
+    setPercent(percent => percent + 5)
+  }
+
   const handleUpload = async () => {
     if (selectedFile) {
       setLoading(true)
       setPercent(0)
-      const intervalId = setInterval(setPercent(percent => percent + 5), 1000);
+      const intervalId = setInterval(handlePercent, 1000);
       if (!error) {
         const formData = new FormData();
         formData.append('video', selectedFile);
@@ -40,7 +44,6 @@ const UploadVideo = () => {
         })
           .then((response) => {
             setCaptionData(response.data);
-            // Handle the response from the backend
           })
           .catch((error) => {
             console.error('Error uploading video:', error);

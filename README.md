@@ -1,4 +1,15 @@
-ASSIGNMENT
+## Final Screenshots
+
+### Step 1 - Select Your Video
+![Alt text](Screenshots/step1.png)
+
+### Step 2 - Upload Your Video
+![Alt text](Screenshots/step2.png)
+
+### Step 3 - Download Your Video
+![Alt text](Screenshots/step3.png)
+
+## ASSIGNMENT :
 
 Here is the assignment, I have made a video https://drive.google.com/file/d/1lVCBCvRb-XFl9BK3nqiyp0RGNKJoQ6Bq/view?usp=sharing
 ----

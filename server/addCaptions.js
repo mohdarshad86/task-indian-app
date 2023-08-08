@@ -47,7 +47,7 @@ async function processVideoWithCaption() {
         }
 
         const inputPath = join(FOLDERS.INPUT, inputFiles[0]);
-        const captionPath = join(FOLDERS.CAPTIONS, 'caption.srt'); // Set your caption file path here
+        const captionPath = join(FOLDERS.CAPTIONS, 'caption.srt');
         await addCaptionToVideo(inputPath, captionPath);
     } catch (e) {
         onError(e);

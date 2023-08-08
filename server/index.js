@@ -20,6 +20,7 @@ const DG_API_KEY = process.env.DG_API_KEY || '61f4f3d67ac70e5d36ef20d4b862a6bae5
 //     apiKey: process.env.OPENAI_API_KEY,
 // });
 // const openai = new OpenAIApi(configuration);
+
 const deepgram = new Deepgram(DG_API_KEY);
 
 app.use(cors());
