@@ -21,6 +21,7 @@ const UploadVideo = ({ setSelectedFile, setFilePreview, setError }) => {
     <>
       <p style={{ color: '#ff5000' }}>STEP 1</p>
       <h2>Select Your Video</h2>
+      <p>Max upload size 20s</p>
       <input ref={inputFileRef} style={{ display: 'none' }} type="file" accept="video/*" onChange={handleFileChange} />
       <div className='vid-select-box' onClick={() => {
         inputFileRef.current.click()

@@ -6,7 +6,7 @@ const Preview = ({ selectedFile, setCaptionData, error, setError, filePreview })
     const [percent, setPercent] = useState(0);
 
     const handlePercent = () => {
-        setPercent(percent => percent + 5)
+        setPercent(percent => percent + 2)
     }
 
     const handleUpload = async () => {
