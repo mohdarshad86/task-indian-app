@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
-const Preview = ({selectedFile, setCaptionData, error, setError, filePreview}) => {
+const Preview = ({ selectedFile, setCaptionData, error, setError, filePreview }) => {
     const [loading, setLoading] = useState(false);
     const [percent, setPercent] = useState(0);
 
@@ -18,7 +18,7 @@ const Preview = ({selectedFile, setCaptionData, error, setError, filePreview}) =
                 const formData = new FormData();
                 formData.append('video', selectedFile);
 
-                axios.post('http://localhost:5000/upload', formData, {
+                axios.post('https://indian-app-guy-backend.onrender.com/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

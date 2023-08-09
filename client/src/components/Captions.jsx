@@ -14,7 +14,7 @@ const Captions = ({ video, captionData, downloadPath }) => {
         <div style={{ textAlign: 'center' }}>
             <p style={{ color: '#ff5000' }}>STEP 3</p>
             <h2>Download Your Video</h2>
-            <a style={{ width: 'max-content', textDecoration: "none" }} className='upload-btn' href={'http://localhost:5000/' + downloadPath} download>Download</a>
+            <a style={{ width: 'max-content', textDecoration: "none" }} className='upload-btn' href={'https://indian-app-guy-backend.onrender.com/' + downloadPath} download>Download</a>
             <div className='caption-main'>
                 <div className='caption'>
                     {captionData.map((caption, i) => {
